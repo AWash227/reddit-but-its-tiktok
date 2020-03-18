@@ -1,0 +1,13 @@
+.interactions {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  top: 55%;
+  right: 0;
+  margin: 1rem;
+  width: 20%;
+  height: 50%;
+  overflow: none;
+  word-wrap: break-word;
+}
