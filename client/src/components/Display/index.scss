@@ -1,17 +1,32 @@
 .display {
+  overflow: hidden;
+  position: absolute;
   &-img {
+    overflow: inherit;
+    pointer-events: none;
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
     text-align: center;
-    top: 0;
-    right: 50;
     left: 50;
-    bottom: 0;
+    right: 50;
+    top: 0;
+  }
+  &-title {
+    overflow: inherit;
+    padding: 1rem;
+    max-height: 5rem;
+    color: white;
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, 1);
+    position: absolute;
+    top: 90%;
+    left: 0;
   }
   &-bg {
-    filter: blur(10px);
+    overflow: inherit;
+    pointer-events: none;
+    filter: blur(10px), opacity(25%);
     -webkit-filter: blur(10px);
     background-position: center;
     background-repeat: no-repeat;
