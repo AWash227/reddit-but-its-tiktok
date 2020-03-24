@@ -15,15 +15,18 @@ function App({ app, data, posts, count, fetchPostsFromSubreddit, setCount }) {
     num => {
       // If posts are loaded in
       if (posts.length) {
-        // And not at end of array
-        if (count < data.numPosts - 1) {
+        // And not at end of array or beginning
+        if (count + num < data.numPosts - 1 || count + num > 0) {
           if (findImageSrc(posts[count + num])) {
             // And the post has an image
             setCount(count + num);
           }
-        } else {
+        } else if (count + num < data.numPosts - 1) {
           fetchPostsFromSubreddit(app.subreddit, `?after=${data.after}`);
           setCount(0);
+        } else {
+          fetchPostsFromSubreddit(app.subreddit, `?before=${data.before}`);
+          setCount(data.numPosts - 1);
         }
       }
     },
@@ -48,6 +51,7 @@ function App({ app, data, posts, count, fetchPostsFromSubreddit, setCount }) {
     <div className="App">
       <Home
         subreddit={app.subreddit}
+        fetchPosts={fetchPostsFromSubreddit}
         prevPost={
           posts[count - 1]
             ? posts[count - 1]

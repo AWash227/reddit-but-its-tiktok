@@ -26,7 +26,7 @@
   &-bg {
     overflow: inherit;
     pointer-events: none;
-    filter: blur(10px), opacity(25%);
+    filter: blur(10px) opacity(0.5);
     -webkit-filter: blur(10px);
     background-position: center;
     background-repeat: no-repeat;

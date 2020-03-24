@@ -1,4 +1,4 @@
-import { postTypes as pt } from "./types";
+import { postTypes as pt, appTypes } from "./types";
 import axios from "axios";
 
 export const fetchPostsFromSubreddit = (
@@ -16,4 +16,9 @@ export const fetchPostsFromSubreddit = (
 export const setCount = (count = 0) => ({
   type: pt.SET_COUNT,
   payload: count
+});
+
+export const setSubreddit = (sub = "") => ({
+  type: appTypes.SET_SUBREDDIT,
+  payload: sub
 });

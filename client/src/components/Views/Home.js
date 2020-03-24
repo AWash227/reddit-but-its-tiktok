@@ -16,6 +16,7 @@ const Home = ({
   post,
   nextPost,
   prevPost,
+  fetchPosts,
   loadNextPost,
   loadPrevPost
 }) => {
@@ -29,7 +30,7 @@ const Home = ({
   ];
   return (
     <div className="view home w-100 h-100" style={{ overflow: "hidden" }}>
-      <Header subreddit={subreddit} />
+      <Header subreddit={subreddit} fetchPosts={fetchPosts} />
       {/*
       <Display
         onSwipedDown={loadNextPost}
