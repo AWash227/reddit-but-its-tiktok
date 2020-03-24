@@ -1,70 +1,54 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./App.scss";
-import { fetchPostsFromSubreddit, setCount } from "./actions/postsActions";
+import { setCount } from "./actions/postsActions";
+import { fetchPostsFromSubreddit } from "./actions/appActions";
+import { nextPost } from "./actions/postsActions";
 import Home from "./components/Views/Home";
 import { connect } from "react-redux";
-import { findImageSrc } from "./utils/parseData";
-
-const images = [
-  " https://external-preview.redd.it/pVAP9bHGoxXFYXd2uVeMzP2WgS5SEIxPrY51iwsgC_Q.jpg?width=960&crop=smart&auto=webp&s=505800035a8253d20046ef9eafceee0ac5b2a6ff",
-  "https://preview.redd.it/95an50waf1n41.jpg?width=640&height=800&crop=smart&auto=webp&s=8801d9aa9a4a532ac3ae8689288b0da90962bc5e"
-];
+import { FullScreenLoader } from "./components/Loader";
+import { getMediaSrc } from "./utils/PostUtils";
 
 function App({ app, data, posts, count, fetchPostsFromSubreddit, setCount }) {
-  const fakeScroll = useCallback(
-    num => {
-      // If posts are loaded in
-      if (posts.length) {
-        // And not at end of array or beginning
-        if (count + num < data.numPosts - 1 || count + num > 0) {
-          if (findImageSrc(posts[count + num])) {
-            // And the post has an image
-            setCount(count + num);
-          }
-        } else if (count + num < data.numPosts - 1) {
-          fetchPostsFromSubreddit(app.subreddit, `?after=${data.after}`);
-          setCount(0);
-        } else {
-          fetchPostsFromSubreddit(app.subreddit, `?before=${data.before}`);
-          setCount(data.numPosts - 1);
-        }
-      }
-    },
-    [posts, count]
-  );
+  const loadNextPost = useCallback(() => {
+    if (count === posts.length - 1) {
+      fetchPostsFromSubreddit(app.subreddit, `?after=${app.data.after}`);
+    } else if (count < posts.length) {
+      setCount(count + 1);
+    }
+  }, [count, app.subreddit]);
 
-  /*
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
-  */
-
+  const loadPreviousPost = () => {
+    if (count === 0) {
+      fetchPostsFromSubreddit(app.subreddit, `?before=${app.data.before}`);
+    } else if (count > 0) {
+      setCount(count - 1);
+    }
+  };
   // Initial Load
   useEffect(() => {
     fetchPostsFromSubreddit(app.subreddit);
-    console.log("POSTS: ", posts);
   }, []);
+
+  /*
+  useEffect(() => {
+    // Preload all posts
+    posts.map(post => {
+      new Image().src = post.media;
+      new Image().src = post.thumbnail;
+    });
+  }, [posts]);
+  */
 
   console.log(app.subreddit);
   return (
     <div className="App">
+      <FullScreenLoader active={app.fetchingPosts} />
       <Home
         subreddit={app.subreddit}
         fetchPosts={fetchPostsFromSubreddit}
-        prevPost={
-          posts[count - 1]
-            ? posts[count - 1]
-            : { title: "PREV_POST", image: "" }
-        }
         post={posts[count] ? posts[count] : { title: "PLACEHOLDER", image: "" }}
-        nextPost={
-          posts[count + 1]
-            ? posts[count + 1]
-            : { title: "NEXT_POST", image: "" }
-        }
-        loadNextPost={() => fakeScroll(1)}
-        loadPrevPost={() => fakeScroll(-1)}
+        loadNextPost={() => loadNextPost()}
+        loadPrevPost={() => loadPreviousPost()}
       />
     </div>
   );
@@ -80,7 +64,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchPostsFromSubreddit,
-  setCount
+  setCount,
+  nextPost
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

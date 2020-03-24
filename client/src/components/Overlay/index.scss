@@ -1,0 +1,22 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  &-enter {
+    opacity: 0;
+    background-color: blue;
+  }
+  &-enter-active {
+    opacity: 1;
+    transition: opacity 200ms;
+  }
+  &-exit {
+    opacity: 1;
+    transition: opacity 200ms;
+  }
+  &-exit-active {
+    opacity: 0;
+  }
+}

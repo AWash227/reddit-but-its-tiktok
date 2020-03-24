@@ -1,15 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../Header";
 import Display from "../Display";
-import Interactions from "../Interactions";
 import Menu from "../Menu";
-import {
-  IoIosHeart,
-  IoIosChatbubbles,
-  IoIosShare,
-  IoIosRedo
-} from "react-icons/io";
-import { prettifyNumber } from "../../utils/parseData";
+import { numToString } from "../../utils/PostUtils";
+import Overlay from "../Overlay";
+import Slider from "../Slider";
+import { FullScreenLoader } from "../Loader";
+import { appTypes } from "../../actions/types";
 
 const Home = ({
   subreddit,
@@ -20,36 +17,23 @@ const Home = ({
   loadNextPost,
   loadPrevPost
 }) => {
-  const interactions = [
-    { icon: <IoIosHeart size={35} />, stat: prettifyNumber(post.score) },
-    {
-      icon: <IoIosChatbubbles size={35} />,
-      stat: prettifyNumber(post.num_comments)
-    },
-    { icon: <IoIosRedo size={35} />, stat: "4763" }
-  ];
+  const [overlayActive, setOverlayActive] = useState(false);
   return (
     <div className="view home w-100 h-100" style={{ overflow: "hidden" }}>
       <Header subreddit={subreddit} fetchPosts={fetchPosts} />
       {/*
       <Display
         onSwipedDown={loadNextPost}
-        onSwipedUp={loadPrevPost}
-        x={0}
+        onSwipedUp={loadPrevPost} x={0}
         y={-window.innerHeight}
         post={prevPost}
         autoplay={false}
       />
       
       */}
-      <Display
-        onSwipedDown={loadNextPost}
-        onSwipedUp={loadPrevPost}
-        x={50}
-        y={0}
-        post={post}
-        autoplay={true}
-      />
+      <Slider handleSwipeDown={loadPrevPost} handleSwipeUp={loadNextPost}>
+        <Display post={post} autoplay={true} />
+      </Slider>
       {/*
       <Display
         onSwipedDown={loadNextPost}
@@ -61,7 +45,7 @@ const Home = ({
       />
       
       */}
-      <Interactions interactions={interactions} />
+      <Overlay active={overlayActive} post={post} />
       <Menu />
     </div>
   );

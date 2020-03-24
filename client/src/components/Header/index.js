@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./index.scss";
 import { connect } from "react-redux";
-import { setSubreddit } from "../../actions/postsActions";
+import { setSubreddit } from "../../actions/appActions";
 
 const Header = ({ subreddit, setSubreddit, fetchPosts }) => {
   const links = [
