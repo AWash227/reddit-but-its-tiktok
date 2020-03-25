@@ -11,9 +11,8 @@
   "devDependencies": {
     "nodemon": "^2.0.2"
   },
-  "proxy": "192.168.1.78:3000",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "heroku-postbuild": "cd client && npm install && npm run build"
   }
 }
