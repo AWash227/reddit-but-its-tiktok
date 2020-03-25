@@ -2,7 +2,7 @@ const express = require("express");
 const server = express();
 const cors = require("cors");
 const axios = require("axios").default;
-const port = 5000;
+const port = process.env.PORT || 5000;
 const router = express.Router();
 
 const BASE_URL = "https://reddit.com";
@@ -40,6 +40,12 @@ router.route("/r/:subreddit").get((req, res) => {
 
 server.use(express.json());
 server.use(cors());
-server.use("/", router);
+server.use("/api", router);
+if(process.env.NODE_ENV === 'production'){
+  server.use(express.static('client/build/'))
+  server.get(*', (req, res) => {
+    res.sendFile(path.resolve(__dirnam, 'client', 'build', 'index.html'))
+}')
+}
 
 server.listen(port, () => console.log(`Reddit CORS fixer : Port ${port}`));
