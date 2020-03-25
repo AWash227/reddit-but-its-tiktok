@@ -41,11 +41,11 @@ router.route("/r/:subreddit").get((req, res) => {
 server.use(express.json());
 server.use(cors());
 server.use("/api", router);
-if(process.env.NODE_ENV === 'production'){
-  server.use(express.static('client/build/'))
-  server.get(*', (req, res) => {
-    res.sendFile(path.resolve(__dirnam, 'client', 'build', 'index.html'))
-}')
+if (process.env.NODE_ENV === "production") {
+  server.use(express.static("client/build/"));
+  server.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
 }
 
 server.listen(port, () => console.log(`Reddit CORS fixer : Port ${port}`));
