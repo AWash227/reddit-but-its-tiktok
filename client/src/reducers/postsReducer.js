@@ -19,7 +19,7 @@ export const postsReducer = (state = initialState, action) => {
           return {
             ...state,
             posts: action.payload.posts,
-            count: action.payload.numPosts
+            count: action.payload.posts.length
           };
         case "AFTER":
           return {

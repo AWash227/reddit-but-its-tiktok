@@ -25,7 +25,7 @@ const Overlay = ({ post, active }) => {
       <div className="overlay w-100 h-100 ">
         <Interactions interactions={interactions} />
         {post.type !== "TEXT" ? (
-          <div className="display-title w-100 h-100">{post.title}</div>
+          <div className="overlay-title w-100 white">{post.title}</div>
         ) : null}
       </div>
     );

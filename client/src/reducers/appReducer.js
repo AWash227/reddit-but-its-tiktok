@@ -1,8 +1,8 @@
-import { appTypes as at } from "../actions/types";
+import { appTypes as at, postTypes as pt } from "../actions/types";
 import { formatResponse } from "../utils/AppUtils";
 import { postsReducer } from "./postsReducer";
 const initialState = {
-  subreddit: "memes",
+  subreddit: "all",
   fetchingPosts: false,
   data: {}
 };

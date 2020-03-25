@@ -1,20 +1,38 @@
+export const removeEncoding = str => {
+  let fixedStr = str;
+  while (fixedStr.includes("&amp;")) {
+    fixedStr = fixedStr.replace("&amp;", "&");
+  }
+  return fixedStr;
+};
+
+export const getEmbedFromContent = (content = "") => {
+  let startPos = content.indexOf("src=");
+  let sliced = content.slice(startPos);
+  let endPos = sliced.indexOf('"');
+  sliced = sliced.slice(0, endPos);
+  return sliced;
+};
+
 export const getMediaSrc = post => {
   switch (post.type) {
+    case "VIDEO_EMBED":
+      if (post.secure_media_embed.content) {
+        return getEmbedFromContent(post.secure_media_embed.content);
+      } else if (post.media_embed.content) {
+        return getEmbedFromContent(post.media_embed.content);
+      }
     case "VIDEO":
-      if (post.secure_media) {
+      if (post.preview.reddit_video_preview) {
+        return post.preview.reddit_video_preview.fallback_url;
+      } else if (post.secure_media) {
         if (post.secure_media.reddit_video) {
-          return post.secure_media.reddit_video;
-        } else if (post.preview.reddit_video_preview) {
-          return post.preview.reddit_video_preview.fallback_url;
+          return post.secure_media.reddit_video.fallback_url;
         }
       }
     case "IMAGE":
       if (post.preview.images[0].source.url) {
-        let src = post.preview.images[0].source.url;
-        while (src.includes("&amp;")) {
-          src = src.replace("&amp;", "&");
-        }
-        return src;
+        return removeEncoding(post.preview.images[0].source.url);
       } else if (post.thumbnail) {
         return post.thumbnail;
       }
@@ -24,7 +42,9 @@ export const getMediaSrc = post => {
 };
 
 export const getPostType = post => {
-  if (post.is_video) {
+  if (post.media_embed.content || post.secure_media_embed.content) {
+    return "VIDEO_EMBED";
+  } else if (post.is_video) {
     return "VIDEO";
   } else if (post.preview) {
     if (post.preview.reddit_video_preview) {
@@ -32,8 +52,6 @@ export const getPostType = post => {
     } else if (post.preview.images[0].source.url) {
       return "IMAGE";
     }
-  } else if (post.media_embed.content) {
-    return "VIDEO_EMBED";
   } else if (post.secure_media) {
     if (post.secure_media.reddit_video) {
       return "VIDEO";
@@ -55,14 +73,14 @@ export const numToString = value => {
 };
 
 export const getThumbnailSrc = post => {
-  if (post.type === "IMAGE") {
-    if (post.thumbnail) {
-      return post.thumbnail;
+  if (post.preview) {
+    if (post.preview.images[0].resolutions[0]) {
+      return removeEncoding(post.preview.images[0].resolutions[0].url);
+    } else if (post.thumbnail) {
+      return removeEncoding(post.thumbnail);
     } else {
-      return post.preview.images[0].resolutions[0].url;
+      return "There was no suitable image";
     }
-  } else {
-    return "Post is not of type: 'Image'";
   }
 };
 

@@ -23,13 +23,16 @@
     "react-transition-group": "^4.3.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "storybook": "^5.3.17",
     "tachyons": "^4.11.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -45,5 +48,16 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^5.3.17",
+    "@storybook/addon-links": "^5.3.17",
+    "@storybook/addons": "^5.3.17",
+    "@storybook/preset-create-react-app": "^2.1.1",
+    "@storybook/preset-scss": "^1.0.2",
+    "@storybook/react": "^5.3.17",
+    "css-loader": "^3.4.2",
+    "sass-loader": "^8.0.2",
+    "style-loader": "^1.1.3"
   }
 }

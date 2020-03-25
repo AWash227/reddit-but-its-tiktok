@@ -29,15 +29,12 @@ function App({ app, data, posts, count, fetchPostsFromSubreddit, setCount }) {
     fetchPostsFromSubreddit(app.subreddit);
   }, []);
 
-  /*
   useEffect(() => {
     // Preload all posts
     posts.map(post => {
-      new Image().src = post.media;
       new Image().src = post.thumbnail;
     });
   }, [posts]);
-  */
 
   console.log(app.subreddit);
   return (

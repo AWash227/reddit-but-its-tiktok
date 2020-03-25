@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./index.scss";
+import { removeEncoding } from "../../utils/PostUtils";
+import Overlay from "../Overlay";
 
 const Display = ({ post, autoplay }) => {
+  const [active, setActive] = useState(true);
   return (
-    <div className="display bg-black w-100 h-100">
+    <div className="display bg-black" onClick={() => setActive(!active)}>
+      <Overlay active={active} post={post} />
       <div
-        className="display-bg w-100 h-100"
+        className="display-bg "
         style={{ backgroundImage: `url(${post.thumbnail})` }}
       ></div>
-      <div className="display-img w-100 h-100">
+      <div className="display-img">
         <MediaDisplay
           type={post.type}
           src={post.media}
+          thumbSrc={post.thumbnail}
           title={post.title}
           autoplay={autoplay}
         />
@@ -20,7 +25,19 @@ const Display = ({ post, autoplay }) => {
   );
 };
 
-const MediaDisplay = ({ type, src, title, autoplay }) => {
+const MediaDisplay = ({ type, src, thumbSrc, title, autoplay }) => {
+  const [fullSrc, setFullSrc] = useState(thumbSrc);
+  useEffect(() => {
+    setFullSrc(thumbSrc);
+    if (type === "IMAGE") {
+      let image = new Image();
+      image.src = src;
+      // Ensure it is loading the correct image for the post
+      if (image.src === src) {
+        image.onload = () => setFullSrc(src);
+      }
+    }
+  }, [src]);
   switch (type) {
     case "VIDEO":
       return (
@@ -33,11 +50,24 @@ const MediaDisplay = ({ type, src, title, autoplay }) => {
         />
       );
     case "IMAGE":
-      return <img src={src} />;
+      return (
+        <img
+          src={fullSrc}
+          style={
+            fullSrc === thumbSrc
+              ? {
+                  objectFit: "contain",
+                  width: "100%",
+                  height: "100%"
+                }
+              : {}
+          }
+        />
+      );
     case "TEXT":
-      return <p className="white">{title}</p>;
+      return <p className="text  white">{removeEncoding(title)}</p>;
     default:
-      return <p className="white">{title}</p>;
+      return <p className="text white">{removeEncoding(title)}</p>;
   }
 };
 

@@ -45,7 +45,6 @@ const Home = ({
       />
       
       */}
-      <Overlay active={overlayActive} post={post} />
       <Menu />
     </div>
   );
