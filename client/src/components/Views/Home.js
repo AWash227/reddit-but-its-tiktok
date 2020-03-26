@@ -2,11 +2,7 @@ import React, { useState } from "react";
 import Header from "../Header";
 import Display from "../Display";
 import Menu from "../Menu";
-import { numToString } from "../../utils/PostUtils";
-import Overlay from "../Overlay";
 import Slider from "../Slider";
-import { FullScreenLoader } from "../Loader";
-import { appTypes } from "../../actions/types";
 
 const Home = ({
   subreddit,

@@ -1,10 +1,11 @@
 .interactions {
   overflow: hidden;
   position: fixed;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  top: 55%;
+  top: 50%;
   right: 0;
   padding: 1rem;
   margin: 1rem;

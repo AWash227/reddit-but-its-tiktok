@@ -1,13 +1,25 @@
 import React, { useState, useEffect } from "react";
 import "./index.scss";
+import { IoIosHeart, IoIosChatbubbles, IoIosRedo } from "react-icons/io";
+import { numToString } from "../../utils/PostUtils";
+import Interactions from "../Interactions";
 import { removeEncoding } from "../../utils/PostUtils";
 import Overlay from "../Overlay";
 
 const Display = ({ post, autoplay }) => {
   const [active, setActive] = useState(true);
+  const interactions = [
+    { icon: <IoIosHeart size={35} />, stat: numToString(post.score) },
+    {
+      icon: <IoIosChatbubbles size={35} />,
+      stat: numToString(post.num_comments)
+    },
+    { icon: <IoIosRedo size={35} />, stat: "4763" }
+  ];
   return (
     <div className="display bg-black" onClick={() => setActive(!active)}>
       <Overlay active={active} post={post} />
+      <Interactions interactions={interactions} visible={!active} />
       <div
         className="display-bg "
         style={{ backgroundImage: `url(${post.thumbnail})` }}
