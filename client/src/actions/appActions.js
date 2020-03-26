@@ -8,7 +8,7 @@ export const fetchPostsFromSubreddit = (
 ) => dispatch => {
   dispatch({ type: at.FETCHING_POSTS });
   axios
-    .get(`http://192.168.1.78:5000/api/r/${subreddit}${query}`)
+    .get(`/api/r/${subreddit}${query}`)
     .then(res => {
       const data = formatResponse(res.data);
       let bOA = "";
