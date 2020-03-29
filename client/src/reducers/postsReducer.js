@@ -1,6 +1,11 @@
 import { postTypes as pt } from "../actions/types";
 import { formatResponse } from "../utils/AppUtils";
 import { fetchPostsFromSubreddit } from "../actions/appActions";
+import {
+  mapOutChildren,
+  recursiveMapOutChildren,
+  getAllChildren
+} from "../utils/PostUtils";
 
 const initialState = {
   data: {},
@@ -39,6 +44,17 @@ export const postsReducer = (state = initialState, action) => {
       return {
         ...state,
         count: action.payload
+      };
+    case pt.FETCH_COMMENTS_FROM_POST:
+      console.log("COMMENTS:", action.payload);
+      let newPosts = [...state.posts];
+      newPosts[state.count] = {
+        ...newPosts[state.count],
+        comments: action.payload
+      };
+      return {
+        ...state,
+        posts: newPosts
       };
 
     case pt.LOAD_NEXT_POST:

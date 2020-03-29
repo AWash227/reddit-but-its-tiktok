@@ -2,13 +2,15 @@ import { appTypes as at, postTypes as pt } from "./types";
 import axios from "axios";
 import { formatResponse } from "../utils/AppUtils";
 
+const URL = ``;
+
 export const fetchPostsFromSubreddit = (
   subreddit = "pics",
   query = ""
 ) => dispatch => {
   dispatch({ type: at.FETCHING_POSTS });
   axios
-    .get(`/api/r/${subreddit}${query}`)
+    .get(`${URL}/api/r/${subreddit}${query}`)
     .then(res => {
       const data = formatResponse(res.data);
       let bOA = "";

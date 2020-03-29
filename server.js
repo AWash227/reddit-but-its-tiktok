@@ -38,6 +38,17 @@ router.route("/r/:subreddit").get((req, res) => {
     .catch(err => console.log(err));
 });
 
+router.route("/comments/:id").get((req, res) => {
+  axios
+    .get(
+      `${BASE_URL}/comments/${req.params.id}.json${queryToString(req.query)}`
+    )
+    .then(comments => {
+      res.json(comments.data);
+    })
+    .catch(err => console.error(err));
+});
+
 server.use(express.json());
 server.use(cors());
 server.use("/api", router);

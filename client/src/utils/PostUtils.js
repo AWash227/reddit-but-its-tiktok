@@ -41,6 +41,9 @@ export const getMediaSrc = post => {
   }
 };
 
+export const getChildren = replies =>
+  replies.data.children.map(child => child.data);
+
 export const getPostType = post => {
   if (post.media_embed.content || post.secure_media_embed.content) {
     return "VIDEO_EMBED";

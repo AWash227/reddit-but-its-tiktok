@@ -1,0 +1,46 @@
+.bottom-drawer {
+  z-index: 10;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  width: 100%;
+  pointer-events: all;
+  .bottom-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+    font-size: 0.9rem;
+    color: black;
+    .close {
+      position: absolute;
+      right: 0.5rem;
+      top: 0.25rem;
+    }
+  }
+  .body {
+    background-color: white;
+    height: 27.5rem;
+    max-height: 60%;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+.bottom-drawer-enter {
+  bottom: -100%;
+}
+
+.bottom-drawer-enter-active {
+  bottom: 0;
+  transition: all 0.25s;
+}
+.bottom-drawer-exit {
+  bottom: 0;
+}
+.bottom-drawer-exit-active {
+  bottom: -100%;
+  transition: all 0.25s;
+}

@@ -1,0 +1,54 @@
+.comments {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  padding: 0.5rem;
+
+  .comment-thread {
+    margin: 0.5rem 0 0 0;
+  }
+}
+
+.comment {
+  font-size: 0.9rem;
+  background-color: white;
+  padding: 0.5rem 0 0 0.5rem;
+  text-align: left;
+  color: black;
+  .comment-header {
+    height: 1rem;
+    font-size: 0.7rem;
+    color: black;
+    .comment-collapse {
+      display: inline-flex;
+      border-radius: 999px;
+      width: 0.75rem;
+      height: 0.75rem;
+      justify-content: center;
+      align-items: center;
+      padding: 0.15rem;
+      margin-right: 0.25rem;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+    }
+    .comment-author {
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+    .comment-score {
+      color: rgba(0, 0, 0, 0.5);
+    }
+  }
+  .comment-body {
+    margin: 0 0 0.25rem 0;
+    padding: 0.5rem 0 0 0.5rem;
+    line-height: 1.5;
+    p {
+      padding: 0;
+      margin: 0;
+    }
+  }
+}

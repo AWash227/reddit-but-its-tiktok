@@ -2,11 +2,13 @@ export const postTypes = (() => {
   const SET_POST = "SET_POST";
   const SET_POSTS = "SET_POSTS";
   const SET_COUNT = "SET_COUNT";
+  const FETCH_COMMENTS_FROM_POST = "FETCH_COMMENTS_FROM_POST";
   const LOAD_NEXT_POST = "LOAD_NEXT_POST";
   return {
     SET_POST,
     SET_POSTS,
     SET_COUNT,
+    FETCH_COMMENTS_FROM_POST,
     LOAD_NEXT_POST
   };
 })();

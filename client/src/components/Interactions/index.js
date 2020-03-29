@@ -6,7 +6,12 @@ const Interactions = ({ interactions }) => {
   return (
     <div className="interactions">
       {interactions.map((interaction, i) => (
-        <Interaction key={i} icon={interaction.icon} text={interaction.stat} />
+        <Interaction
+          key={i}
+          icon={interaction.icon}
+          text={interaction.stat}
+          onClick={interaction.onClick}
+        />
       ))}
     </div>
   );

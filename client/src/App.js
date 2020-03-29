@@ -2,13 +2,21 @@ import React, { useState, useEffect, useCallback } from "react";
 import "./App.scss";
 import { setCount } from "./actions/postsActions";
 import { fetchPostsFromSubreddit } from "./actions/appActions";
-import { nextPost } from "./actions/postsActions";
+import { nextPost, fetchCommentsFromPost } from "./actions/postsActions";
 import Home from "./components/Views/Home";
 import { connect } from "react-redux";
 import { FullScreenLoader } from "./components/Loader";
 import { getMediaSrc } from "./utils/PostUtils";
 
-function App({ app, data, posts, count, fetchPostsFromSubreddit, setCount }) {
+function App({
+  app,
+  data,
+  posts,
+  count,
+  fetchPostsFromSubreddit,
+  fetchCommentsFromPost,
+  setCount
+}) {
   const loadNextPost = useCallback(() => {
     if (count === posts.length - 1) {
       fetchPostsFromSubreddit(app.subreddit, `?after=${app.data.after}`);
@@ -36,6 +44,12 @@ function App({ app, data, posts, count, fetchPostsFromSubreddit, setCount }) {
     });
   }, [posts]);
 
+  useEffect(() => {
+    if (posts.length) {
+      fetchCommentsFromPost(posts[count].id, "");
+    }
+  }, [count]);
+
   console.log(app.subreddit);
   return (
     <div className="App">
@@ -61,6 +75,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchPostsFromSubreddit,
+  fetchCommentsFromPost,
   setCount,
   nextPost
 };

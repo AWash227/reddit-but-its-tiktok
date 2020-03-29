@@ -27,9 +27,12 @@ const Home = ({
       />
       
       */}
-      <Slider handleSwipeDown={loadPrevPost} handleSwipeUp={loadNextPost}>
-        <Display post={post} autoplay={true} />
-      </Slider>
+      <Display
+        post={post}
+        loadPrevPost={loadPrevPost}
+        loadNextPost={loadNextPost}
+        autoplay={true}
+      />
       {/*
       <Display
         onSwipedDown={loadNextPost}
