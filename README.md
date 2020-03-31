@@ -3,10 +3,10 @@
 I have long been a viewer of Reddit content. But now there is a new Social Media out there: TikTok. Now, I am not a fan of the content on there, but the app layout is not bad.
 So I did what anyone would do and took all of the content on Reddit and put it into Tiktok.
 
-![Post from /all/](./public/post1.jpg)
-![Post comments from /all/](./public/post1_comments.jpg)
-![2nd Post from /all/](./public/post2.jpg)
-![2nd Post comments from /all/](./public/post2-comments.jpg)
+<img src="./public/post1.jpg" style="width: 49%">
+<img src="./public/post1_comments.jpg" style="width: 49%">
+<img src="./public/post2.jpg" style="width: 49%">
+<img src="./public/post2-comments.jpg" style="width: 49%">
 
 ## How it works
 
