@@ -8,7 +8,7 @@ const COLOR_SCHEME_ALT = ["#fffcca", "#55e9bc", "#11d3bc", "#537780"];
 const COLOR_SCHEME_ALT_2 = ["#394a6d", "#3c9d9b", "#52de97", "#c0ffb3"];
 
 const Comment = ({ text, score, comments, colorScheme, depth = 0 }) => {
-  const [collapsed, setCollapsed] = useState(depth < 2 ? false : true);
+  const [collapsed, setCollapsed] = useState(depth % 3 === 0 ? false : true);
   const [bodyCollapsed, setBodyCollapsed] = useState(true);
   const handleCollapse = () => {
     setCollapsed(!collapsed);
@@ -26,9 +26,11 @@ const Comment = ({ text, score, comments, colorScheme, depth = 0 }) => {
           <span className="comment-author">AWash227</span>{" "}
           <span className="comment-score">{score} points</span>
           {collapsed && comments ? (
-            <span className="comments">{`${comments.length} ${
-              comments.length === 1 ? "comment" : "comments"
-            }`}</span>
+            comments.length === 0 ? null : (
+              <span className="comments">{`${comments.length} ${
+                comments.length === 1 ? "comment" : "comments"
+              }`}</span>
+            )
           ) : null}
         </div>
         {!collapsed ? (

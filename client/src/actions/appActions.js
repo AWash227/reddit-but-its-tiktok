@@ -1,8 +1,10 @@
 import { appTypes as at, postTypes as pt } from "./types";
 import axios from "axios";
 import { formatResponse } from "../utils/AppUtils";
+import { PROD_URL, DEV_URL } from "../utils/AppUtils";
 
-const URL = ``;
+// Change me to DEV_URL if you are trying to run the app locally
+const URL = PROD_URL;
 
 export const fetchPostsFromSubreddit = (
   subreddit = "pics",

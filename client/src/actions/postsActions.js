@@ -1,6 +1,9 @@
 import { postTypes as pt, appTypes as at } from "./types";
 import axios from "axios";
-const URL = ``;
+import { PROD_URL, DEV_URL } from "../utils/AppUtils";
+
+// Change me to DEV_URL if you are trying to run the app locally
+const URL = PROD_URL;
 
 export const setCount = (count = 0) => ({
   type: pt.SET_COUNT,
