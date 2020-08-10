@@ -23,7 +23,7 @@ const Comment = ({ text, score, comments, colorScheme, depth = 0 }) => {
           <span className="comment-collapse" onClick={() => handleCollapse()}>
             {collapsed ? <IoIosArrowDown /> : <IoIosArrowUp />}
           </span>
-          <span className="comment-author">AWash227</span>{" "}
+          <span className="comment-author">Redditor</span>{" "}
           <span className="comment-score">{score} points</span>
           {collapsed && comments ? (
             comments.length === 0 ? null : (

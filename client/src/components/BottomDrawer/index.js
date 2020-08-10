@@ -12,11 +12,6 @@ const BottomDrawer = ({ active, title, setActive, children }) => {
 
   return (
     <Swipeable
-      /*() => {
-        if (isAtTop) {
-          handleClose();
-        }
-      }*/
       trackMouse
     >
       <CSSTransition
