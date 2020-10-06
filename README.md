@@ -45,4 +45,4 @@ Here are some potential further improvements:
 2. Run npm install on both the client and root folders
 3. Then execute 'npm start' on both folders (root first, then client)
 4. Navigate to appActions.js and postActions.js and change the URL variable in each to DEV_URL
-5. Navigate to localhost:300 and it should be working!
+5. Navigate to localhost:5000 and it should be working!
