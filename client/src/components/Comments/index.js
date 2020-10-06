@@ -7,7 +7,7 @@ const COLOR_SCHEME = ["#1fab89", "#62d2a2", "#9df3c4", "#d7fbe8"];
 const COLOR_SCHEME_ALT = ["#fffcca", "#55e9bc", "#11d3bc", "#537780"];
 const COLOR_SCHEME_ALT_2 = ["#394a6d", "#3c9d9b", "#52de97", "#c0ffb3"];
 
-const Comment = ({ text, score, comments, colorScheme, depth = 0 }) => {
+const Comment = ({ text, score, comments, colorScheme, author, depth = 0 }) => {
   const [collapsed, setCollapsed] = useState(depth % 3 === 0 ? false : true);
   const [bodyCollapsed, setBodyCollapsed] = useState(true);
   const handleCollapse = () => {
@@ -23,7 +23,7 @@ const Comment = ({ text, score, comments, colorScheme, depth = 0 }) => {
           <span className="comment-collapse" onClick={() => handleCollapse()}>
             {collapsed ? <IoIosArrowDown /> : <IoIosArrowUp />}
           </span>
-          <span className="comment-author">Redditor</span>{" "}
+          <span className="comment-author">{author}</span>{" "}
           <span className="comment-score">{score} points</span>
           {collapsed && comments ? (
             comments.length === 0 ? null : (
@@ -45,6 +45,7 @@ const Comment = ({ text, score, comments, colorScheme, depth = 0 }) => {
                     id={comment.id}
                     score={comment.score}
                     text={comment.body}
+                    author={comment.author}
                     comments={
                       comment.replies
                         ? comment.replies.data.children.map(child => child.data)
@@ -71,6 +72,7 @@ const Comments = ({ comments }) => {
           id={comment.id}
           text={comment.body}
           score={comment.score}
+          author={comment.author}
           comments={
             comment.replies
               ? comment.replies.data.children.map(child => child.data)
@@ -84,3 +86,4 @@ const Comments = ({ comments }) => {
 };
 
 export default Comments;
+
