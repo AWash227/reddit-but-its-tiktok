@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./index.scss";
 import { removeEncoding } from "../../utils/PostUtils";
 import Overlay from "../Overlay";
@@ -6,6 +6,24 @@ import Slider from "../Slider";
 
 const Display = ({ post, autoplay, loadPrevPost, loadNextPost }) => {
   const [active, setActive] = useState(true);
+
+  const handleKeyPress = useCallback(event => {
+    const { key } = event;
+    if(key === 'ArrowDown'){
+      loadNextPost();
+    }
+    if(key === 'ArrowUp'){
+      loadPrevPost();
+    }
+  }, [post]);
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyPress);
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    }
+  }, [handleKeyPress])
+
   return (
     <div className="display bg-black" onClick={() => {}}>
       <Overlay active={active} post={post} />
