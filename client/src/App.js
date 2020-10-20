@@ -18,24 +18,33 @@ function App({
   setCount
 }) {
   const loadNextPost = useCallback(() => {
-    if (count === posts.length - 1) {
-      fetchPostsFromSubreddit(app.subreddit, `?after=${app.data.after}`);
-    } else if (count < posts.length) {
-      setCount(count + 1);
-    }
-  }, [count, app.subreddit]);
+		if (count === posts.length - 1) {
+			fetchPostsFromSubreddit(
+				app.subreddit,
+				`?limit=25&after=${app.data.after}&count=${count}`
+			);
+		} else if (count < posts.length) {
+			setCount(count + 1);
+		}
+	}, [count, app.subreddit]);
 
-  const loadPreviousPost = () => {
-    if (count === 0) {
-      fetchPostsFromSubreddit(app.subreddit, `?before=${app.data.before}`);
-    } else if (count > 0) {
-      setCount(count - 1);
-    }
-  };
-  // Initial Load
-  useEffect(() => {
-    fetchPostsFromSubreddit(app.subreddit);
-  }, []);
+	const loadPreviousPost = useCallback(() => {
+		if (count === 0) {
+			if (app.data.before) {
+				fetchPostsFromSubreddit(
+					app.subreddit,
+					`?limit=25&before=${app.data.before}&count=${posts.length -
+						1}`
+				);
+			}
+		} else if (count > 0) {
+			setCount(count - 1);
+		}
+	}, [count, app.subreddit]);
+	// Initial Load
+	useEffect(() => {
+		fetchPostsFromSubreddit(app.subreddit, `?limit=25&count=1`);
+	}, []);
 
   useEffect(() => {
     // Preload all posts
@@ -44,11 +53,11 @@ function App({
     });
   }, [posts]);
 
-  useEffect(() => {
-    if (posts.length) {
-      fetchCommentsFromPost(posts[count].id, "");
-    }
-  }, [count]);
+  // useEffect(() => {
+  //   if (posts.length) {
+  //     fetchCommentsFromPost(posts[count].id, "");
+  //   }
+  // }, [count]);
 
   console.log(app.subreddit);
   return (
