@@ -43,7 +43,7 @@ function App({
 	}, [count, app.subreddit]);
 	// Initial Load
 	useEffect(() => {
-		fetchPostsFromSubreddit(app.subreddit, `?limit=25&count=1`);
+		fetchPostsFromSubreddit(app.subreddit);
 	}, []);
 
   useEffect(() => {
