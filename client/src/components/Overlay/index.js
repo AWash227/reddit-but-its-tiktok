@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { IoIosHeart, IoIosChatbubbles, IoIosRedo } from "react-icons/io";
 import { comments } from "../../stories/5-Comments.stories";
+import { useSelector, useDispatch } from "react-redux";
 import { numToString, getChildren } from "../../utils/PostUtils";
 import Interactions from "../Interactions";
 import BottomDrawer from "../BottomDrawer";
 import "./index.scss";
 import Comments from "../Comments";
+import { fetchCommentsFromPost } from "../../actions/postsActions";
 
 const Overlay = ({ post, active }) => {
   const [commentsActive, setCommentsActive] = useState(false);
+  const {count, posts, fetchingComment} = useSelector((state)=>state.posts);
+  const dispatch = useDispatch();
   const interactions = [
     { icon: <IoIosHeart size={35} />, stat: numToString(post.score) },
     {
@@ -19,6 +23,14 @@ const Overlay = ({ post, active }) => {
     { icon: <IoIosRedo size={35} />, stat: "4763" }
   ];
 
+  useEffect(() => {
+    if(commentsActive){
+      if (posts.length) {
+        dispatch(fetchCommentsFromPost(posts[count].id, ""));
+      }
+    }
+  }, [dispatch, commentsActive]);
+
   if (active) {
     return (
       <div className="overlay w-100 h-100 ">
@@ -28,7 +40,7 @@ const Overlay = ({ post, active }) => {
           active={commentsActive}
           setActive={setCommentsActive}
         >
-          <Comments comments={post.comments} />
+          {fetchingComment ? <p>Loading</p> : <Comments comments={post.comments} />}
         </BottomDrawer>
         {post.type !== "TEXT" ? (
           <div className="overlay-title w-100 white">{post.title}</div>
