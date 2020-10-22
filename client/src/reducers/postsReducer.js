@@ -12,7 +12,8 @@ const initialState = {
   count: 3,
   posts: [],
   numPosts: 0,
-  post: {}
+  post: {},
+  fetchingComment: false,
 };
 
 export const postsReducer = (state = initialState, action) => {
@@ -24,7 +25,7 @@ export const postsReducer = (state = initialState, action) => {
           return {
             ...state,
             posts: action.payload.posts,
-            count: action.payload.posts.length
+            count: action.payload.posts.length - 1
           };
         case "AFTER":
           return {
@@ -45,8 +46,13 @@ export const postsReducer = (state = initialState, action) => {
         ...state,
         count: action.payload
       };
+    case pt.FETCHING_COMMENTS:
+      return {
+        ...state,
+        fetchingComment: true
+      }
     case pt.FETCH_COMMENTS_FROM_POST:
-      console.log("COMMENTS:", action.payload);
+      // console.log("COMMENTS:", action.payload);
       let newPosts = [...state.posts];
       newPosts[state.count] = {
         ...newPosts[state.count],
@@ -56,7 +62,11 @@ export const postsReducer = (state = initialState, action) => {
         ...state,
         posts: newPosts
       };
-
+    case pt.FINISHED_FETCHING_COMMENTS:
+      return {
+        ...state,
+        fetchingComment: false
+      }
     case pt.LOAD_NEXT_POST:
     default:
       return state;

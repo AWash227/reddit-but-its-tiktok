@@ -10,11 +10,13 @@ export const setCount = (count = 0) => ({
   payload: count
 });
 export const fetchCommentsFromPost = (postId, query) => dispatch => {
+	dispatch({type:pt.FETCHING_COMMENTS});
   axios
     .get(`${URL}/api/comments/${postId}${query}`)
     .then(({ data }) => {
       let comments = data[1].data.children.map(child => child.data);
-      dispatch({ type: pt.FETCH_COMMENTS_FROM_POST, payload: comments });
+			dispatch({ type: pt.FETCH_COMMENTS_FROM_POST, payload: comments });
+			dispatch({type:pt.FINISHED_FETCHING_COMMENTS});
     })
     .catch(err => console.error(err));
 };
