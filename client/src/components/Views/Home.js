@@ -4,6 +4,10 @@ import Display from "../Display";
 import Menu from "../Menu";
 import Slider from "../Slider";
 
+
+// import new hook to control fetching of data from API
+import { usePosts } from '../../utils/hooks/usePosts';
+
 const Home = ({
   subreddit,
   post,
@@ -14,6 +18,10 @@ const Home = ({
   loadPrevPost
 }) => {
   const [overlayActive, setOverlayActive] = useState(false);
+
+  // See pull requests for full implementation
+  const postsQuery = usePosts(subreddit)
+
   return (
     <div className="view home w-100 h-100" style={{ overflow: "hidden" }}>
       <Header subreddit={subreddit} fetchPosts={fetchPosts} />
