@@ -17,6 +17,10 @@ function App({
   fetchCommentsFromPost,
   setCount
 }) {
+
+  
+
+
   const loadNextPost = useCallback(() => {
 		if (count === posts.length - 1) {
 			fetchPostsFromSubreddit(
